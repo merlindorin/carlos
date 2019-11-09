@@ -19,10 +19,10 @@ package service
 import (
 	"context"
 	"errors"
+	"github.com/iam-merlin/carlos/pkg/car"
+	"github.com/iam-merlin/carlos/pkg/log"
 
-	car2 "github.com/iam-merlin/carlos/car"
 	"github.com/iam-merlin/carlos/internal/grpc"
-	"github.com/iam-merlin/carlos/log"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc/health"
 )
@@ -32,12 +32,12 @@ type CarServiceImpl struct {
 	Health      *health.Server
 	logChannel  *log.ChannelLogger
 	serviceName string
-	car         *car2.Car
+	car         *car.Car
 }
 
 //NewCarServiceImpl returns the pointer to the implementation.
 func NewCarServiceImpl(serviceName string, healthServer *health.Server) (*CarServiceImpl, error) {
-	car, err := car2.NewCar()
+	car, err := car.NewCar()
 	if err != nil {
 		return nil, err
 	}

@@ -17,10 +17,10 @@
 package car
 
 import (
+	"github.com/iam-merlin/carlos/pkg/direction"
+	"github.com/iam-merlin/carlos/pkg/engine"
 	"time"
 
-	"github.com/iam-merlin/carlos/direction"
-	"github.com/iam-merlin/carlos/engine"
 	"github.com/sirupsen/logrus"
 	"gobot.io/x/gobot/drivers/i2c"
 	"gobot.io/x/gobot/platforms/raspi"

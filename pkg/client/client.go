@@ -6,8 +6,8 @@ import (
 )
 
 type Client struct {
-	car grpc.CarServiceClient
-	log grpc.LogServiceClient
+	Car grpc.CarServiceClient
+	Log grpc.LogServiceClient
 }
 
 func NewClient(conn *grpc2.ClientConn) Client {
@@ -15,7 +15,7 @@ func NewClient(conn *grpc2.ClientConn) Client {
 	l := grpc.NewLogServiceClient(conn)
 
 	return Client{
-		car: c,
-		log: l,
+		Car: c,
+		Log: l,
 	}
 }

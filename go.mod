@@ -14,7 +14,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/urfave/cli v1.22.1
 	go.opencensus.io v0.22.2 // indirect
-	gobot.io/x/gobot v0.0.0-00010101000000-000000000000
+	gobot.io/x/gobot v1.14.0
 	golang.org/x/net v0.0.0-20191109021931-daa7c04131f5 // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
 	golang.org/x/sys v0.0.0-20191105231009-c1f44814a5cd // indirect
@@ -23,9 +23,3 @@ require (
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v2 v2.2.5 // indirect
 )
-
-replace gobot.io/x/gobot => github.com/iam-merlin/gobot v1.14.1-0.20191106204422-2dfe9651f25f
-
-replace gobot.io/x/gobot/drivers/i2c => github.com/iam-merlin/gobot/drivers/i2c v1.14.1-0.20191106204422-2dfe9651f25f
-
-replace gobot.io/x/gobot/platforms/raspi => github.com/iam-merlin/gobot/platforms/raspi v1.14.1-0.20191106204422-2dfe9651f25f

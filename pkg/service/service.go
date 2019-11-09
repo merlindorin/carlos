@@ -19,7 +19,7 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/iam-merlin/carlos"
+	"github.com/iam-merlin/carlos/grpc"
 	"github.com/iam-merlin/carlos/pkg/car"
 	"github.com/iam-merlin/carlos/pkg/log"
 
@@ -59,14 +59,14 @@ func (serviceImpl *CarServiceImpl) End() error {
 }
 
 //Add function implementation of gRPC Service.
-func (serviceImpl *CarServiceImpl) Log(empty *main.Empty, stream main.LogService_LogServer) error {
+func (serviceImpl *CarServiceImpl) Log(empty *grpc.Empty, stream grpc.LogService_LogServer) error {
 	serviceImpl.logChannel.IsSubscribing(true)
 	defer serviceImpl.logChannel.IsSubscribing(false)
 
 	for {
 		select {
 		case l := <-serviceImpl.logChannel.Channel:
-			if err := stream.Send(&main.Log{Message: l.Message, Level: int64(l.Level)}); err != nil {
+			if err := stream.Send(&grpc.Log{Message: l.Message, Level: int64(l.Level)}); err != nil {
 				return err
 			}
 		case <-stream.Context().Done():
@@ -76,36 +76,36 @@ func (serviceImpl *CarServiceImpl) Log(empty *main.Empty, stream main.LogService
 }
 
 // Power
-func (serviceImpl *CarServiceImpl) Power(c context.Context, p *main.Power) (*main.Empty, error) {
+func (serviceImpl *CarServiceImpl) Power(c context.Context, p *grpc.Power) (*grpc.Empty, error) {
 	if p.Power {
-		return &main.Empty{}, serviceImpl.car.PowerOn()
+		return &grpc.Empty{}, serviceImpl.car.PowerOn()
 	}
-	return &main.Empty{}, serviceImpl.car.PowerOff()
+	return &grpc.Empty{}, serviceImpl.car.PowerOff()
 }
 
 // Emergency
-func (serviceImpl *CarServiceImpl) Emergency(context.Context, *main.Emergency) (*main.Empty, error) {
+func (serviceImpl *CarServiceImpl) Emergency(context.Context, *grpc.Emergency) (*grpc.Empty, error) {
 	if !serviceImpl.car.Power {
-		return &main.Empty{}, errors.New("car must be power on before emergency use")
+		return &grpc.Empty{}, errors.New("car must be power on before emergency use")
 	}
 
-	return &main.Empty{}, serviceImpl.car.PowerOff()
+	return &grpc.Empty{}, serviceImpl.car.PowerOff()
 }
 
 // Brake
-func (serviceImpl *CarServiceImpl) Brake(c context.Context, b *main.Brake) (*main.Empty, error) {
+func (serviceImpl *CarServiceImpl) Brake(c context.Context, b *grpc.Brake) (*grpc.Empty, error) {
 	if !serviceImpl.car.Power {
-		return &main.Empty{}, errors.New("car must be power on before brake use")
+		return &grpc.Empty{}, errors.New("car must be power on before brake use")
 	}
 
-	return &main.Empty{}, serviceImpl.car.Direction.Turn(int(b.Radius))
+	return &grpc.Empty{}, serviceImpl.car.Direction.Turn(int(b.Radius))
 }
 
 // Move
-func (serviceImpl *CarServiceImpl) Move(c context.Context, m *main.Move) (*main.Empty, error) {
+func (serviceImpl *CarServiceImpl) Move(c context.Context, m *grpc.Move) (*grpc.Empty, error) {
 	if !serviceImpl.car.Power {
-		return &main.Empty{}, errors.New("car must be power on before move use")
+		return &grpc.Empty{}, errors.New("car must be power on before move use")
 	}
 
-	return &main.Empty{}, serviceImpl.car.Engine.Move(int(m.Speed))
+	return &grpc.Empty{}, serviceImpl.car.Engine.Move(int(m.Speed))
 }

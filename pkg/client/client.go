@@ -1,18 +1,18 @@
 package client
 
 import (
-	"github.com/iam-merlin/carlos"
+	"github.com/iam-merlin/carlos/grpc"
 	grpc2 "google.golang.org/grpc"
 )
 
 type Client struct {
-	Car main.CarServiceClient
-	Log main.LogServiceClient
+	Car grpc.CarServiceClient
+	Log grpc.LogServiceClient
 }
 
 func NewClient(conn *grpc2.ClientConn) Client {
-	c := main.NewCarServiceClient(conn)
-	l := main.NewLogServiceClient(conn)
+	c := grpc.NewCarServiceClient(conn)
+	l := grpc.NewLogServiceClient(conn)
 
 	return Client{
 		Car: c,

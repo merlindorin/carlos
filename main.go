@@ -19,6 +19,7 @@ package main
 import (
 	"context"
 	"fmt"
+	grpc2 "github.com/iam-merlin/carlos/grpc"
 	"github.com/iam-merlin/carlos/pkg/service"
 	"net"
 	"net/http"
@@ -29,7 +30,6 @@ import (
 
 	openCencusGrpc "github.com/akhenakh/ocgrpc_propagation"
 	nested "github.com/antonfisher/nested-logrus-formatter"
-	grpc2 "github.com/iam-merlin/carlos/internal/grpc"
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 	"golang.org/x/sync/errgroup"

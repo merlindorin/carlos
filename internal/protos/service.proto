@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package service;
+
+import "internal/protos/domain.proto";
+
+option go_package = "internal/grpc";
+
+service CarService {
+    rpc Power(domain.Power) returns (Empty) {}
+    rpc Emergency(domain.Emergency) returns (Empty) {}
+    rpc Brake(domain.Brake) returns (Empty) {}
+    rpc Move(domain.Move) returns (Empty) {}
+}
+
+service LogService {
+    rpc Log(Empty) returns (stream domain.Log) {}
+}
+
+message Empty {
+}

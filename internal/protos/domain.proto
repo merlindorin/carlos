@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package domain;
+
+option go_package = "internal/grpc";
+
+message Log {
+    string Message = 1;
+    int64 Level = 2;
+}
+
+message Power {
+    bool power = 1;
+}
+
+message Move {
+    int64 speed = 1;
+}
+
+message Brake {
+    int64 radius = 1;
+}
+
+message Emergency {
+    bool emergency = 1;
+}
+
+message Error {
+    string code = 1;
+    string message = 2;
+}
